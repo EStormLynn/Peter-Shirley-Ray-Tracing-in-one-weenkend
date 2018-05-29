@@ -1,0 +1,3 @@
+/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles/Peter_Shirley_Project_Code.dir
