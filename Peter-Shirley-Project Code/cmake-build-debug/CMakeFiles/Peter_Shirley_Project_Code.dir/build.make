@@ -43,10 +43,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/SeeKHit/Project/Peter-Shirley-Project Code"
+CMAKE_SOURCE_DIR = "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug"
+CMAKE_BINARY_DIR = "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Peter_Shirley_Project_Code.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/Peter_Shirley_Project_Code.dir/flags.make
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o: CMakeFiles/Peter_Shirley_Project_Code.dir/flags.make
 CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o -c "/Users/SeeKHit/Project/Peter-Shirley-Project Code/main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o -c "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp"
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/SeeKHit/Project/Peter-Shirley-Project Code/main.cpp" > CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp" > CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.i
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/SeeKHit/Project/Peter-Shirley-Project Code/main.cpp" -o CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp" -o CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.s
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o.provides.build: CMakeFiles/
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o: CMakeFiles/Peter_Shirley_Project_Code.dir/flags.make
 CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o: ../vec3.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o -c "/Users/SeeKHit/Project/Peter-Shirley-Project Code/vec3.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o -c "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.cpp"
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/SeeKHit/Project/Peter-Shirley-Project Code/vec3.cpp" > CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.cpp" > CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.i
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/SeeKHit/Project/Peter-Shirley-Project Code/vec3.cpp" -o CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.cpp" -o CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.s
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o.requires:
 
@@ -117,7 +117,7 @@ Peter_Shirley_Project_Code: CMakeFiles/Peter_Shirley_Project_Code.dir/main.cpp.o
 Peter_Shirley_Project_Code: CMakeFiles/Peter_Shirley_Project_Code.dir/vec3.cpp.o
 Peter_Shirley_Project_Code: CMakeFiles/Peter_Shirley_Project_Code.dir/build.make
 Peter_Shirley_Project_Code: CMakeFiles/Peter_Shirley_Project_Code.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Peter_Shirley_Project_Code"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Peter_Shirley_Project_Code"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Peter_Shirley_Project_Code.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -135,6 +135,6 @@ CMakeFiles/Peter_Shirley_Project_Code.dir/clean:
 .PHONY : CMakeFiles/Peter_Shirley_Project_Code.dir/clean
 
 CMakeFiles/Peter_Shirley_Project_Code.dir/depend:
-	cd "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/SeeKHit/Project/Peter-Shirley-Project Code" "/Users/SeeKHit/Project/Peter-Shirley-Project Code" "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug" "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug" "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles/Peter_Shirley_Project_Code.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code" "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code" "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug" "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug" "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug/CMakeFiles/Peter_Shirley_Project_Code.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/Peter_Shirley_Project_Code.dir/depend
 

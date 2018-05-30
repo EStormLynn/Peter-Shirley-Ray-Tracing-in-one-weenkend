@@ -1,4 +1,4 @@
-# Install script for directory: /Users/SeeKHit/Project/Peter-Shirley-Project Code
+# Install script for directory: /Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/SeeKHit/Project/Peter-Shirley-Project Code/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
