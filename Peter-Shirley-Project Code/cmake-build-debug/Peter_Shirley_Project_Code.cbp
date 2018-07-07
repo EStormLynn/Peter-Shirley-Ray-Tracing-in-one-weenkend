@@ -85,9 +85,6 @@
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp">
 			<Option target="Peter_Shirley_Project_Code"/>
 		</Unit>
-		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.cpp">
-			<Option target="Peter_Shirley_Project_Code"/>
-		</Unit>
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.h">
 			<Option target="Peter_Shirley_Project_Code"/>
 		</Unit>
