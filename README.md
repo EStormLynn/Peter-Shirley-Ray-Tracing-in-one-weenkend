@@ -36,7 +36,7 @@ int main()
 * 红+绿=黄
 * 打印的内容保存成.ppm格式即可预览
 
-![]()
+![](http://oo8jzybo8.bkt.clouddn.com/Chapter01_Output%20an%20image.png)
 
 ## Chapter2:The vec3 class
 用于几何向量计算和颜色计算，
