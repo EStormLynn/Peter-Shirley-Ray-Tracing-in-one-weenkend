@@ -9,4 +9,14 @@
 /Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp
 iostream
 -
+vec3.h
+/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.h
+
+/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.h
+math.h
+-
+stdlib.h
+-
+iostream
+-
 
