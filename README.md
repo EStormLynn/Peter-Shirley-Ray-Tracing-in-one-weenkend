@@ -39,4 +39,49 @@ int main()
 ![](http://oo8jzybo8.bkt.clouddn.com/Chapter01_Output%20an%20image.png)
 
 ## Chapter2:The vec3 class
-用于几何向量计算和颜色计算，
+用于几何向量计算和颜色计算，包含颜色，向量，位置坐标，偏移，主要包含重写操作符，以及点乘、叉乘等操作。
+```c++
+class vec3  {
+public:
+    vec3() {}
+    vec3(float e0, float e1, float e2) { e[0] = e0; e[1] = e1; e[2] = e2; }
+    inline float x() const { return e[0]; }
+    inline float y() const { return e[1]; }
+    inline float z() const { return e[2]; }
+    inline float r() const { return e[0]; }
+    inline float g() const { return e[1]; }
+    inline float b() const { return e[2]; }
+
+    inline const vec3& operator+() const { return *this; }
+    inline vec3 operator-() const { return vec3(-e[0], -e[1], -e[2]); }
+    inline float operator[](int i) const { return e[i]; }
+    inline float& operator[](int i) { return e[i]; };
+
+    inline vec3& operator+=(const vec3 &v2);
+    inline vec3& operator-=(const vec3 &v2);
+    inline vec3& operator*=(const vec3 &v2);
+    inline vec3& operator/=(const vec3 &v2);
+    inline vec3& operator*=(const float t);
+    inline vec3& operator/=(const float t);
+
+    inline float length() const { return sqrt(e[0]*e[0] + e[1]*e[1] + e[2]*e[2]); }
+    inline float squared_length() const { return e[0]*e[0] + e[1]*e[1] + e[2]*e[2]; }
+    inline void make_unit_vector();
+
+    float e[3];
+};
+
+```
+
+## Chapter3:Rays, a simple camera, and background
+所有的ray tracers 都是以ray类为基础，计算颜色
+    p(t) = A + t*B
+其中A是光源点，B是ray的方向，t是具体float值，空间中确定一条线，不同的t，可以到达不同地方。
+
+![](http://oo8jzybo8.bkt.clouddn.com/3.1.png)
+
+p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计算像素点的颜色。在ray tracing之前需要有个摄像机，建立坐标系，显示背景色，以及ray hit的点的颜色。
+
+假设摄像机的位置就是眼睛位置，看到的内容为ppm显示的东西，简历坐标系，z轴正方向，垂直平面向外，x向右，y向上，
+
+![](http://oo8jzybo8.bkt.clouddn.com/3.2.png)
