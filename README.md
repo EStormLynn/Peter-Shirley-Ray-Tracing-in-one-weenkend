@@ -85,3 +85,23 @@ p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计
 假设摄像机的位置就是眼睛位置，看到的内容为ppm显示的东西，简历坐标系，z轴正方向，垂直平面向外，x向右，y向上，
 
 ![](http://oo8jzybo8.bkt.clouddn.com/3.2.png)
+
+计算公式：
+
+    blended_value = (1-t)*start_value + t*end_value
+
+![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-05%20at%2011.57.37%20PM.png)
+
+## Chapter4:Adding a sphere
+球的公式：
+    x*x + y*y +z*z = R*R
+对于任意xyz，如果满足球面公式，(x,y,z)为球面的一个点。
+
+如果球心位置为（cx,cy,cz）,公式为
+    (x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz) = R*R
+
+用向量表示，球面点P，球心点C，半径可以表示为向量PC
+    dot((p-C)(p-C)) = (x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz) 
+
+
+
