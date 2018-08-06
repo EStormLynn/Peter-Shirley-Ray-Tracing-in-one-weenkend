@@ -93,15 +93,59 @@ p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计
 ![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-05%20at%2011.57.37%20PM.png)
 
 ## Chapter4:Adding a sphere
+
 球的公式：
+
     x*x + y*y +z*z = R*R
+
 对于任意xyz，如果满足球面公式，(x,y,z)为球面的一个点。
 
 如果球心位置为（cx,cy,cz）,公式为
+
     (x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz) = R*R
 
 用向量表示，球面点P，球心点C，半径可以表示为向量PC
+
     dot((p-C)(p-C)) = (x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz) 
 
+等价于
+
+    dot((A + t*B - C),(A + t*B - C)) = R*R
+
+展开之后
+
+    t*t*dot(B,B) + 2*t*dot(A-C,A-C) + dot(C,C) - R*R = 0
+
+ABC已知，这里是一个关于t的一元二次方程，对于t无解，有一个解，有两个解的情况，即为下图
+
+![](http://oo8jzybo8.bkt.clouddn.com/roots.png)
+
+通过打印颜色，利用红色的射线，ray hit 圆，hit到的地方显示红色
+
+```c++
+bool hit_sphere(const vec3 & center, float radius,const ray& r)
+{
+    vec3 oc = r.origin() -center;
+    float a = dot(r.direction(), r.direction());
+    float b = 2.0 * dot(oc,r.direction());
+    float c = dot(oc,oc) -radius*radius;
+    float discriminant = b*b - 4*a*c;
+    return (discriminant>0);
+}
+
+vec3 color(const ray& r)
+{
+    if(hit_sphere(vec3(0,0,-1),0.5,r))
+        return vec3(1.0,0,0);
+
+    vec3 unit_direction = unit_vector(r.direction());
+    float t = 0.5 *(unit_direction.y() + 1.0);
+    return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+}
+```
+
+![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-07%20at%2012.29.04%20AM.png)
+
+## Chapter5:Surface normals and multiple objects
 
 
