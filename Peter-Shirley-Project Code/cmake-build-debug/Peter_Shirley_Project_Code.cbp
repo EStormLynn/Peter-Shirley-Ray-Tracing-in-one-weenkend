@@ -82,10 +82,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/hitable.h">
+			<Option target="Peter_Shirley_Project_Code"/>
+		</Unit>
+		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/hitable_list.h">
+			<Option target="Peter_Shirley_Project_Code"/>
+		</Unit>
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp">
 			<Option target="Peter_Shirley_Project_Code"/>
 		</Unit>
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/ray.h">
+			<Option target="Peter_Shirley_Project_Code"/>
+		</Unit>
+		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/sphere.h">
 			<Option target="Peter_Shirley_Project_Code"/>
 		</Unit>
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/vec3.h">

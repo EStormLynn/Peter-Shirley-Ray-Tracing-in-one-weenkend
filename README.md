@@ -148,4 +148,200 @@ vec3 color(const ray& r)
 
 ## Chapter5:Surface normals and multiple objects
 
+法线是垂直与物体表面的一个向量，对于上一节提到的球，他的法线方向是，从球心出发，射向hitpoint的。就像在地球上，地面的法向是从地心出发，射向你站立的点的。
 
+![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.39%20AM.png)
+
+假设N是长度在[-1，1]之间的单位向量，映射到去见[0,1]之间，再映射x/y/z到r/g/b，通常除了须要知道是否hit点，还要拿到hit point的数据。
+
+```C++
+// 本章 hit_Sphere的返回值改为float了
+float hit_sphere(const vec3 & center, float radius,const ray& r)
+{
+    vec3 oc = r.origin() -center;
+    float a = dot(r.direction(), r.direction());
+    float b = 2.0 * dot(oc,r.direction());
+    float c = dot(oc,oc) -radius*radius;
+    float discriminant = b*b - 4*a*c;
+    if(discriminant<0)
+        return -1.0;
+    else
+        return (-b-sqrt(discriminant))/(2.0*a);
+}
+
+vec3 color(const ray& r)
+{
+    float t = hit_sphere(vec3(0,0,-1),0.5,r);
+    if(t>0.0)
+    {
+        // 球心到hitpoint的单位法向量
+        vec3 N = unit_vector(r.point_at_parameter(t)-vec3(0,0,-1));
+        return 0.5*vec3(N.x() +1,N.y()+1,N.z()+1);
+    }
+
+    vec3 unit_direction = unit_vector(r.direction());
+    t = 0.5 *(unit_direction.y() + 1.0);
+    return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+}
+
+```
+
+
+![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.29%20AM.png)
+
+当场景中有多个可以被击中的物体的时候，需要一个Hitable的抽象类，包含抽象方法hit 是否击中，以及记录hit到的数据，包括hit的位置，hit点的法向，以及距离t
+
+通过距离t
+    tmin< t < tmax 
+来控制hit到物体的距离远近，因为hit到之后将不再往后ray tracing。
+
+```C++
+#include "ray.h"
+
+struct hit_record
+{
+    float t;
+    vec3 p;
+    vec3 normal;
+};
+
+class hitable
+{
+public:
+    virtual bool hit(const ray& r,float t_min,float t_max,hit_record & rec)const =0;
+};
+```
+
+对于sphere类基础hitable抽象类，实现自己的hit方法，去判断是否击中了球的对象
+
+```C++
+
+#include "hitable.h"
+
+class sphere: public hitable  {
+public:
+    sphere() {}
+    sphere(vec3 cen, float r) : center(cen), radius(r)  {};
+    virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec) const;
+    vec3 center;
+    float radius;
+};
+
+bool sphere::hit(const ray& r, float t_min, float t_max, hit_record& rec) const {
+    vec3 oc = r.origin() - center;
+    float a = dot(r.direction(), r.direction());
+    float b = dot(oc, r.direction());
+    float c = dot(oc, oc) - radius*radius;
+    float discriminant = b*b - a*c;
+    if (discriminant > 0) {
+        float temp = (-b - sqrt(discriminant))/a;
+        if (temp < t_max && temp > t_min) {
+            rec.t = temp;
+            rec.p = r.point_at_parameter(rec.t);
+            rec.normal = (rec.p - center) / radius;
+            return true;
+        }
+        temp = (-b + sqrt(discriminant)) / a;
+        if (temp < t_max && temp > t_min) {
+            rec.t = temp;
+            rec.p = r.point_at_parameter(rec.t);
+            rec.normal = (rec.p - center) / radius;
+            return true;
+        }
+    }
+    return false;
+}
+```
+
+还需要一个hitable list去记录击中所有的物体，也是继承hitable类，实现hit方法，去找出最近的物体。
+
+```C++
+
+#include "hitable.h"
+
+class hitable_list: public hitable  {
+public:
+    hitable_list() {}
+    hitable_list(hitable **l, int n) {list = l; list_size = n; }
+    virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec) const;
+    hitable **list;
+    int list_size;
+};
+
+bool hitable_list::hit(const ray& r, float t_min, float t_max, hit_record& rec) const {
+    hit_record temp_rec;
+    bool hit_anything = false;
+    double closest_so_far = t_max;
+    for (int i = 0; i < list_size; i++) {
+        if (list[i]->hit(r, t_min, closest_so_far, temp_rec)) {
+            hit_anything = true;
+            closest_so_far = temp_rec.t;
+            rec = temp_rec;
+        }
+    }
+    return hit_anything;
+}
+```
+
+本章新的main函数如下
+```C++
+#include <iostream>
+#include "sphere.h"
+#include "hitable_list.h"
+#include "float.h"
+
+using namespace std;
+
+
+vec3 color(const ray& r,hitable *world)
+{
+    hit_record rec;
+    if(world->hit(r,0.0,MAXFLOAT,rec))
+        return 0.5*vec3(rec.normal.x()+1,rec.normal.y()+1,rec.normal.z()+1);
+    else
+    {
+        vec3 unit_direction = unit_vector(r.direction());
+        float t = 0.5 *(unit_direction.y() + 1.0);
+        return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+    }
+}
+
+int main()
+{
+    int nx =200;
+    int ny=100;
+    cout<<"P3\n"<<nx<<" "<<ny<<"\n255\n";
+    vec3 lower_left_corner(-2.0,-1.0,-1.0);
+    vec3 horizontal(4.0,0.0,0.0);
+    vec3 vertical(0.0,2.0,0.0);
+    vec3 origin(0.0,0.0,0.0);
+
+    hitable *list[2];
+    // 球1
+    list[0] = new sphere(vec3(0,0,-1),0.5);
+    // 球2
+    list[1] = new sphere(vec3(0,-100.5,-1),100);
+
+    hitable *world = new hitable_list(list,2);
+    for(int j=ny-1;j>=0;j--)
+    {
+        for(int i=0;i<nx;i++)
+        {
+            float u = float(i)/float(nx);
+            float v = float(j)/float(ny);
+
+            ray r(origin,lower_left_corner + u*horizontal +v * vertical);
+
+            vec3 p = r.point_at_parameter(2.0);
+            vec3 col = color(r,world);
+
+            int ir=int(255.99* col[0]);
+            int ig=int(255.99* col[1]);
+            int ib=int(255.99* col[2]);;
+            cout<<ir<<" "<<ig<<" "<<ib<<"\n";
+        }
+    }
+}
+```
+
+![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.35.11%20AM.png)
