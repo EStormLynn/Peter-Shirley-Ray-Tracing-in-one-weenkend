@@ -472,3 +472,57 @@ int main()
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/AA.png" width="400" height="400" alt=""/></div>
 
+
+## Chapter7:Diffuse Materials
+之前已经实现了多个object 和每个像素多个采样，本章将实现漫反射材质。首先需要明确的一点是，物体和材质的关系，我们假设球体有一个自己的材质，通常在渲染中，每个物体都有自己的材质。
+
+不发光的物体，漫反射是吸收周围的颜色，显示出来，物体表面反射周围的光线的方向是随机的，如下图，在2个不同的物体的漫反射表面间，发射了3条光线，三条光线的漫反射之后的路径各不相同：
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.02.10%20PM.png" width="400" height="200" alt=""/></div>
+
+漫反射物体的表面，也可能会吸收部分光线，表面越暗，吸收的光线越多，吸收之后看起来就像一个哑光的表面。
+
+选择一个随机的点切一个单位半径的球，这个点就是hitpoint，在球上选个随机点s，从p到s做一条线，作为漫反射的方向，这个球的球心是（p + N），N是hitpoitn的法向。
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.12.28%20PM.png" width="400" height="200" alt=""/></div>
+
+关于球面上s点如何区，这里的做法是，在单位cube中，选一个点，x、y、z都在[-1,1]之间，如果这个点不在球内，继续选点，直到满足在球内的这个条件。
+
+```C++
+// 单位cube随机取点,返回一个在球内的点
+vec3 random_in_unit_sphere()
+{
+    vec3 p;
+    do{
+        p = 2.0*vec3(random1,random1,random1) - vec3(1,1,1);
+    }while (dot(p,p) >= 1.0);
+    return p;
+}
+
+vec3 color(const ray& r,hitable *world)
+{
+    hit_record rec;
+    if(world->hit(r,0.0,MAXFLOAT,rec))
+    {
+        vec3 target = rec.p + rec.normal + random_in_unit_sphere();
+        return 0.5* color(ray(rec.p, target - rec.p), world);
+    }
+    else
+    {
+        vec3 unit_direction = unit_vector(r.direction());
+        float t = 0.5 *(unit_direction.y() + 1.0);
+        return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+    }
+}
+```
+
+得到的图像如下：
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.33.09%20PM.png" width="400" height="200" alt=""/></div>
+
+球和地板的交界处的颜色可能不明显，是因为吸收的光太多了，可以通多将颜色开放的方法，来提高物体表面的亮度，减少吸收的光
+
+    col = vec3(sqrt(col[0]),sqrt(col[1]),sqrt(col[2]));
+
+这样就可以看清楚交界处的阴影效果了，如下图：
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.39.00%20PM.png" width="400" height="200" alt=""/></div>
