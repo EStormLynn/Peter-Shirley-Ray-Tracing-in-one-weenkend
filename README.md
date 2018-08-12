@@ -1,4 +1,22 @@
 # Peter Shirley-Ray Tracing in One Weekend (2016)
+[Github地址](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend)
+
+
+
+## 目录：
+- [x] [Chapter1:Output an image](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter1output-an-image)
+- [x] [Chapter2:The vec3 class](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter2the-vec3-class)
+- [x] [Chapter3:Rays, a simple camera, and background](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter3rays-a-simple-camera-and-background)
+- [x] [Chapter4:Adding a sphere](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter4adding-a-sphere)
+- [x] [Chapter5:Surface normals and multiple objects](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter5surface-normals-and-multiple-objects)
+- [x] [Chapter6:Antialiasing](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter6antialiasing)
+- [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
+- [ ] [Chapter8:Metal]()
+- [ ] [Chapter9:Dielectrics]()
+- [ ] [Chapter10:Positionable camera]()
+- [ ] [Chapter11:Defocus]()
+- [ ] [Chapter12:Where next?]()
+
 
 ## Chapter1:Output an image
 使用ppm渲染到图片
@@ -7,6 +25,7 @@
 #include <iostream>
 
 using namespace std;
+
 
 int main()
 {
@@ -526,3 +545,13 @@ vec3 color(const ray& r,hitable *world)
 这样就可以看清楚交界处的阴影效果了，如下图：
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.39.00%20PM.png" width="400" height="200" alt=""/></div>
+
+## Chapter8:Metal
+
+## Chapter9:Dielectrics
+
+## Chapter10:Positionable camera
+
+## Chapter11:Defocus 
+
+## Chapter12:Where next?
