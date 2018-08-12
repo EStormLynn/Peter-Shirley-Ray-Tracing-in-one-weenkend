@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/camera.h">
+			<Option target="Peter_Shirley_Project_Code"/>
+		</Unit>
 		<Unit filename="/Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/hitable.h">
 			<Option target="Peter_Shirley_Project_Code"/>
 		</Unit>

@@ -36,7 +36,7 @@ int main()
 * 红+绿=黄
 * 打印的内容保存成.ppm格式即可预览
 
-![](http://oo8jzybo8.bkt.clouddn.com/Chapter01_Output%20an%20image.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Chapter01_Output%20an%20image.png" width="400" height="200" alt=""/></div>
 
 ## Chapter2:The vec3 class
 用于几何向量计算和颜色计算，包含颜色，向量，位置坐标，偏移，主要包含重写操作符，以及点乘、叉乘等操作。
@@ -78,19 +78,23 @@ public:
     p(t) = A + t*B
 其中A是光源点，B是ray的方向，t是具体float值，空间中确定一条线，不同的t，可以到达不同地方。
 
-![](http://oo8jzybo8.bkt.clouddn.com/3.1.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/3.1.png" width="400" height="200" alt=""/></div>
+
 
 p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计算像素点的颜色。在ray tracing之前需要有个摄像机，建立坐标系，显示背景色，以及ray hit的点的颜色。
 
 假设摄像机的位置就是眼睛位置，看到的内容为ppm显示的东西，简历坐标系，z轴正方向，垂直平面向外，x向右，y向上，
 
-![](http://oo8jzybo8.bkt.clouddn.com/3.2.png)
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/3.2.png" width="400" height="200" alt=""/></div>
+
 
 计算公式：
 
     blended_value = (1-t)*start_value + t*end_value
 
-![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-05%20at%2011.57.37%20PM.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-05%20at%2011.57.37%20PM.png" width="400" height="200" alt=""/></div>
+
 
 ## Chapter4:Adding a sphere
 
@@ -118,7 +122,8 @@ p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计
 
 ABC已知，这里是一个关于t的一元二次方程，对于t无解，有一个解，有两个解的情况，即为下图
 
-![](http://oo8jzybo8.bkt.clouddn.com/roots.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/roots.png" width="400" height="200" alt=""/></div>
+
 
 通过打印颜色，利用红色的射线，ray hit 圆，hit到的地方显示红色
 
@@ -144,13 +149,16 @@ vec3 color(const ray& r)
 }
 ```
 
-![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-07%20at%2012.29.04%20AM.png)
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-07%20at%2012.29.04%20AM.png" width="400" height="200" alt=""/></div>
+
 
 ## Chapter5:Surface normals and multiple objects
 
 法线是垂直与物体表面的一个向量，对于上一节提到的球，他的法线方向是，从球心出发，射向hitpoint的。就像在地球上，地面的法向是从地心出发，射向你站立的点的。
 
-![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.39%20AM.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.39%20AM.png" width="350" height="200" alt=""/></div>
+
 
 假设N是长度在[-1，1]之间的单位向量，映射到去见[0,1]之间，再映射x/y/z到r/g/b，通常除了须要知道是否hit点，还要拿到hit point的数据。
 
@@ -187,7 +195,7 @@ vec3 color(const ray& r)
 ```
 
 
-![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.29%20AM.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.29%20AM.png" width="400" height="200" alt=""/></div>
 
 当场景中有多个可以被击中的物体的时候，需要一个Hitable的抽象类，包含抽象方法hit 是否击中，以及记录hit到的数据，包括hit的位置，hit点的法向，以及距离t
 
@@ -344,4 +352,123 @@ int main()
 }
 ```
 
-![](http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.35.11%20AM.png)
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.35.11%20AM.png" width="400" height="200" alt=""/></div>
+
+## Chapter6:Antialiasing
+
+真实世界中，照相机拍照时，一边边缘部分没有锯齿，因为每个像素，前景和背景在边缘的地方进行的混合。我们可以通过平均多个像素的值，达到一样的效果。我们的做法是，抽象camera类，后面再写颜色的部分。
+
+还需要写个随机数的生成器，用来控制采样点的位置，范围是在[0,1]之间。这里我定义了一个宏
+    
+    #define random(a,b) (rand()%(b-a+1)+a)
+
+使用rand()程序运行时每次生成的随机数和上一次相同，便于调试。
+
+对于给的一个像素，我们有好几个采样点在像素内，对每个采样点进行ray tracer，再平均每个采样点的color。
+
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/average%20sample.png" width="300" height="200" alt=""/></div>
+
+
+camera类
+```c++
+class camera
+{
+    vec3 origin;
+    vec3 horizontal;
+    vec3 vertical;
+    vec3 lower_left_corner;
+
+public :
+    camera()
+    {
+       lower_left_corner = vec3 (-2.0,-1.0,-1.0);
+       horizontal = vec3(4.0,0.0,0.0);
+       vertical = vec3(0.0,2.0,0.0);
+       origin = vec3(0.0,0.0,0.0);
+    }
+
+    ray get_ray(float u,float v)
+    {
+        return ray(origin,lower_left_corner+u*horizontal + v*vertical - origin);
+    }
+
+};
+```
+
+main函数
+```C++
+#include <iostream>
+#include "sphere.h"
+#include "hitable_list.h"
+#include "float.h"
+#include "camera.h"
+#include "random"
+#define random(a,b) (rand()%(b-a+1)+a)
+
+using namespace std;
+
+vec3 color(const ray& r,hitable *world)
+{
+    hit_record rec;
+    if(world->hit(r,0.0,MAXFLOAT,rec))
+        return 0.5*vec3(rec.normal.x()+1,rec.normal.y()+1,rec.normal.z()+1);
+    else
+    {
+        vec3 unit_direction = unit_vector(r.direction());
+        float t = 0.5 *(unit_direction.y() + 1.0);
+        return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+    }
+}
+
+int main()
+{
+    int nx =200;
+    int ny=100;
+    // 采样数量ns
+    int ns = 100;
+    cout<<"P3\n"<<nx<<" "<<ny<<"\n255\n";
+
+    camera cam;
+
+    hitable *list[2];
+    // 球1
+    list[0] = new sphere(vec3(0,0,-1),0.5);
+    // 球2
+    list[1] = new sphere(vec3(0,-100.5,-1),100);
+
+    hitable *world = new hitable_list(list,2);
+    random_device rd;
+
+    for(int j=ny-1;j>=0;j--)
+    {
+        for(int i=0;i<nx;i++)
+        {
+            vec3 col(0,0,0);
+
+            for(int s = 0; s<ns; s++)
+            {
+                float u = (float(i)+float(random(0,100))/100.0f)/float(nx);
+                float v = (float(j)+float(random(0,100))/100.0f)/float(ny);
+
+                ray r = cam.get_ray(u,v);
+                vec3 p = r.point_at_parameter(2.0);
+                col += color(r,world);
+            }
+            // color 取均值
+            col /= float(ns);
+
+            int ir=int(255.99* col[0]);
+            int ig=int(255.99* col[1]);
+            int ib=int(255.99* col[2]);;
+            cout<<ir<<" "<<ig<<" "<<ib<<"\n";
+        }
+    }
+
+}
+```
+
+最后达到的效果如下
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/AA.png" width="400" height="400" alt=""/></div>
+
