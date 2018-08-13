@@ -709,6 +709,10 @@ int main()
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
 
+关于metal的反射，也可以用一个随机性的反射方向，来做微量的偏移，相当于一个小球上选endpoint。
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
+
 ## Chapter9:Dielectrics
 
 ## Chapter10:Positionable camera
