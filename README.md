@@ -1,4 +1,11 @@
 # Peter Shirley-Ray Tracing in One Weekend (2016)
+
+原著：Peter Shirley
+
+本书是Peter Shirley ray tracing系列三部曲的第一本，也是学习ray tracing 入门比较容易的一本书，自己照着书上的内容，抄了一遍，Github有完整的代码，和每一章学习过程的代码，部分代码加了注释。
+
+[英文原著地址](https://pan.baidu.com/s/1b5CvAdElCcXAO2R4lNFgkA)  密码: urji
+
 [Github地址](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend)
 
 
@@ -11,7 +18,7 @@
 - [x] [Chapter5:Surface normals and multiple objects](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter5surface-normals-and-multiple-objects)
 - [x] [Chapter6:Antialiasing](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter6antialiasing)
 - [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
-- [ ] [Chapter8:Metal]()
+- [x] [Chapter8:Metal]()
 - [ ] [Chapter9:Dielectrics]()
 - [ ] [Chapter10:Positionable camera]()
 - [ ] [Chapter11:Defocus]()
@@ -547,6 +554,160 @@ vec3 color(const ray& r,hitable *world)
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.39.00%20PM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter8:Metal
+对于不同的物体，可能有不同的材质，所以就需要设计一个材质抽象类，包含一些参数。对于程序而言，材质需要做的事情包括
+
+* 1.产生一个散射体（或者表示吸收了多少光线）
+* 2.如果发生散射，表达出光线应该衰减多少
+
+抽象类如下：
+```C++
+class material  {
+public:
+    // 散射虚函数
+    // 参数：r_in 入射的光线， rec hit的记录， attenuation v3的衰减，scattered 散射后的光线
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const = 0;
+};
+```
+
+hitables 和material须要知道对方的数据，所以在c++代码中，hit_record中加了一个指针 * mat_ptr 指向material这个类。
+
+```C++
+struct hit_record
+{
+    float t;
+    vec3 p;
+    vec3 normal;
+    material *mat_ptr;
+};
+```
+
+lambertian 材质，主要是漫反射，通过attenuation衰减，来控制散射之后的光线强度，散射的方向用random_in_unit_sphere()控制，albedo表示反射率
+
+```C++
+class lambertian : public material {
+public:
+    lambertian(const vec3& a) : albedo(a) {}
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const  {
+        vec3 target = rec.p + rec.normal + random_in_unit_sphere();
+        scattered = ray(rec.p, target-rec.p);
+        attenuation = albedo;
+        return true;
+    }
+
+    vec3 albedo;    // 反射率
+};
+```
+
+对于光滑表面的物体，ray不会随机的散射，物理规律是反射角等于入射角，会发生镜面反射，向量的说明如下：
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-13%20at%2011.53.40%20PM.png" width="260" height="200" alt=""/></div>
+
+红色的是反射光线，向量表示是(v+2B)，N是单位法向量，v是入射光线的方向向量，B的模是v和N的点乘 dot(v,N)。公式为：
+	
+	vec3 reflect(const vec3& v, const vec3& n) {
+    	return v - 2*dot(v,n)*n;
+	}
+
+metal材质只反射光线，代码如下：
+```C++
+class metal : public material {
+public:
+    metal(const vec3& a, float f) : albedo(a) { if (f < 1) fuzz = f; else fuzz = 1; }
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const  {
+        vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
+        scattered = ray(rec.p, reflected + fuzz*random_in_unit_sphere());
+        attenuation = albedo;
+        return (dot(scattered.direction(), rec.normal) > 0);
+    }
+    vec3 albedo;
+    float fuzz;
+};
+```
+
+修改color方法，对散射进行递归，求color
+```C++
+
+vec3 color(const ray& r,hitable *world, int depth)
+{
+    hit_record rec;
+    if(world->hit(r,0.0,MAXFLOAT,rec))
+    {
+        // 散射后的光线
+        ray scattered;
+        // 衰减
+        vec3 attenuation;
+
+        if(depth<50 && rec.mat_ptr->scatter(r,rec,attenuation,scattered))
+        {
+            // 递归 衰减
+            return attenuation * color(scattered, world, depth+1);
+        } else
+        {
+            return vec3(0,0,0);
+        }
+    }
+    else
+    {
+        vec3 unit_direction = unit_vector(r.direction());
+        float t = 0.5 *(unit_direction.y() + 1.0);
+        return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
+    }
+}
+```
+
+再在场景中添加2个metal材质的球，main函数如下
+注意因为加了hitrecord添加了material ，sphere的hit函数须要将hit_record的引用传出来，须要在函数内形参的指针指向material的matptr。
+```C++
+int main()
+{
+    int nx =200;
+    int ny =100;
+    // 采样数量ns
+    int ns = 100;
+    cout<<"P3\n"<<nx<<" "<<ny<<"\n255\n";
+
+    camera cam;
+
+    hitable *list[2];
+    // 球1,2,3,4
+    list[0] = new sphere(vec3(0,0,-1),0.5,new lambertian(vec3(0.8,0.3,0.3)));
+    list[1] = new sphere(vec3(0,-100.5,-1),100,new lambertian(vec3(0.8,0.8,0.0)));
+    list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),1));
+    list[3] = new sphere(vec3(-1,0,-1),0.5,new metal(vec3(0.8,0.8,0.8),1));
+
+    hitable *world = new hitable_list(list,4);
+    random_device rd;
+
+    for(int j=ny-1;j>=0;j--)
+    {
+        for(int i=0;i<nx;i++)
+        {
+            vec3 col(0,0,0);
+
+            for(int s = 0; s<ns; s++)
+            {
+                float u = (float(i)+float(random(0,100))/100.0f)/float(nx);
+                float v = (float(j)+float(random(0,100))/100.0f)/float(ny);
+
+                ray r = cam.get_ray(u,v);
+                vec3 p = r.point_at_parameter(2.0);
+                col += color(r,world,0);
+            }
+            // color 取均值
+            col /= float(ns);
+            col = vec3(sqrt(col[0]),sqrt(col[1]),sqrt(col[2]));
+
+            int ir=int(255.99* col[0]);
+            int ig=int(255.99* col[1]);
+            int ib=int(255.99* col[2]);;
+            cout<<ir<<" "<<ig<<" "<<ib<<"\n";
+        }
+    }
+
+}
+```
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter9:Dielectrics
 

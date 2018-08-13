@@ -35,6 +35,7 @@ vec3 color(const ray& r,hitable *world, int depth)
         return (1.0-t)*vec3(1.0,1.0,1.0) + t*vec3(0.5,0.7,1.0);
     }
 }
+
 int main()
 {
     int nx =200;
@@ -46,7 +47,7 @@ int main()
     camera cam;
 
     hitable *list[2];
-    // 球1,2,3,4; 2个lambertian ，2个metal
+    // 球1,2,3,4
     list[0] = new sphere(vec3(0,0,-1),0.5,new lambertian(vec3(0.8,0.3,0.3)));
     list[1] = new sphere(vec3(0,-100.5,-1),100,new lambertian(vec3(0.8,0.8,0.0)));
     list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),1));
