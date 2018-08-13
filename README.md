@@ -18,7 +18,7 @@
 - [x] [Chapter5:Surface normals and multiple objects](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter5surface-normals-and-multiple-objects)
 - [x] [Chapter6:Antialiasing](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter6antialiasing)
 - [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
-- [x] [Chapter8:Metal]()
+- [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metal)
 - [ ] [Chapter9:Dielectrics]()
 - [ ] [Chapter10:Positionable camera]()
 - [ ] [Chapter11:Defocus]()
@@ -709,9 +709,13 @@ int main()
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
 
-关于metal的反射，也可以用一个随机性的反射方向，来做微量的偏移，相当于一个小球上选endpoint。
+关于metal的反射，也可以用一个随机性的反射方向，来做微量的偏移，相当于一个小球上选endpoint。fuzzinss就相当于这个小球的半径，可以决定反射偏移的多少。fuzz取值在[0,1]之间
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.35%20AM.png" width="300" height="200" alt=""/></div>
+
+最后效果如下，注意2变metal sphere中反射的边界模糊。
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.45%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter9:Dielectrics
 
