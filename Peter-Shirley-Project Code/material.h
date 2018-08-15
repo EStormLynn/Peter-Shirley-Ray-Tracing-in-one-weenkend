@@ -106,6 +106,7 @@ public:
             reflect_prob = schlick(cosine, ref_idx);
         else
             reflect_prob = 1.0;
+        // 随机数小与反射系数，设为反射光线，反之为折射光线
         if (drand48() < reflect_prob)
             scattered = ray(rec.p, reflected);
         else

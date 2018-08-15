@@ -18,7 +18,7 @@
 - [x] [Chapter5:Surface normals and multiple objects](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter5surface-normals-and-multiple-objects)
 - [x] [Chapter6:Antialiasing](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter6antialiasing)
 - [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
-- [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metal)
+- [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metalADD)
 - [ ] [Chapter9:Dielectrics]()
 - [ ] [Chapter10:Positionable camera]()
 - [ ] [Chapter11:Defocus]()
@@ -713,11 +713,114 @@ int main()
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.35%20AM.png" width="300" height="200" alt=""/></div>
 
-最后效果如下，注意2变metal sphere中反射的边界模糊。
+最后效果如下，注意两边的metal sphere中反射的边界模糊。
 
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.45%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter9:Dielectrics
+
+透明的物体，比如水，玻璃，钻石是电介质，当光射入的时候，不仅发生反射，还会发生折射。折射光线是ray tracer中比较难debug的部分。本章节在场景中放入了2个玻璃球，渲染出来的画面是这样的：
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.04.21%20AM.png" width="400" height="200" alt=""/></div>
+
+光从一种介质进入另一种介质时，实际上，有一部分光会折射进入另一种介质，有另一部分光则会反射回来。反射系数=反射光振幅（能量）/入射光振幅（能量）。
+
+反射系数的求解是是一个非常复杂的过程，Christophe Schlick这个人提供一个逼近公式，这个公式被称为“ChristopheSchlick’s Approximation”。Wiki链接：
+
+https://en.wikipedia.org/wiki/Schlick%27s_approximation
+
+当反射系数为0，只有折射，没有反射。
+
+折射满足 斯涅尔定律（Snell law）
+
+	n * sin(theta) = n' * sin(theat')
+
+折射系数（air= 1,glass = 1.3-1.7, diamond = 2.4）
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.05.54%20AM.png" width="250" height="200" alt=""/></div>
+
+折射部分的代码如下：
+
+```C++
+bool refract(const vec3& v, const vec3& n, float ni_over_nt, vec3& refracted) {
+    vec3 uv = unit_vector(v);
+    float dt = dot(uv, n);
+    float discriminant = 1.0 - ni_over_nt*ni_over_nt*(1-dt*dt);
+    if (discriminant > 0) {
+        refracted = ni_over_nt*(uv - n*dt) - n*sqrt(discriminant);
+        return true;
+    }
+    else
+        return false;
+}
+```
+
+电解质材质总是会发生折射，所以材质类中派生dielectric类。
+
+```C++
+
+class dielectric : public material {
+public:
+    dielectric(float ri) : ref_idx(ri) {}
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const  {
+        vec3 outward_normal;
+        vec3 reflected = reflect(r_in.direction(), rec.normal);
+        float ni_over_nt;
+        attenuation = vec3(1.0, 1.0, 1.0);
+        vec3 refracted;
+        float reflect_prob;
+        float cosine;
+        if (dot(r_in.direction(), rec.normal) > 0) {
+            outward_normal = -rec.normal;
+            ni_over_nt = ref_idx;
+            //         cosine = ref_idx * dot(r_in.direction(), rec.normal) / r_in.direction().length();
+            cosine = dot(r_in.direction(), rec.normal) / r_in.direction().length();
+            cosine = sqrt(1 - ref_idx*ref_idx*(1-cosine*cosine));
+        }
+        else {
+            outward_normal = rec.normal;
+            ni_over_nt = 1.0 / ref_idx;
+            cosine = -dot(r_in.direction(), rec.normal) / r_in.direction().length();
+        }
+        if (refract(r_in.direction(), outward_normal, ni_over_nt, refracted))
+            reflect_prob = schlick(cosine, ref_idx);
+        else
+            reflect_prob = 1.0;
+
+        // 随机数小与反射系数，设为反射光线，反之为折射光线
+        if (drand48() < reflect_prob)
+            scattered = ray(rec.p, reflected);
+        else
+            scattered = ray(rec.p, refracted);
+        return true;
+    }
+
+    float ref_idx;
+};
+```
+衰减始终是1，玻璃表面不吸收任何光线。
+
+当场景中添加4个球，渲染出来的画面是这样的
+```c++
+    list[0] = new sphere(vec3(0,0,-1),0.5,new lambertian(vec3(0.8,0.3,0.3)));
+    list[1] = new sphere(vec3(0,-100.5,-1),100,new lambertian(vec3(0.8,0.8,0.0)));
+    list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),0.3));
+    list[3] = new sphere(vec3(-1,0,-1),0.5,new dielectric(1.5));
+```
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.18.55%20AM.png" width="400" height="200" alt=""/></div>
+
+如果对于电介质的球内部再加一个半径为 负的球，得到的效果如下（感觉是不同介质之间负负得正了）：
+
+```c++
+    list[0] = new sphere(vec3(0,0,-1),0.5,new lambertian(vec3(0.8,0.3,0.3)));
+    list[1] = new sphere(vec3(0,-100.5,-1),100,new lambertian(vec3(0.8,0.8,0.0)));
+    list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),0.3));
+    list[3] = new sphere(vec3(-1,0,-1),0.5,new dielectric(1.5));
+    list[4] = new sphere(vec3(-1,0,-1),-0.45,new dielectric(1.5));
+```
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.24.39%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter10:Positionable camera
 
