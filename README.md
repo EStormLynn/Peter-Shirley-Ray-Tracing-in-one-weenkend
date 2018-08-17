@@ -20,7 +20,7 @@
 - [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
 - [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metalADD)
 - [x] [Chapter9:Dielectrics](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter9dielectrics)
-- [ ] [Chapter10:Positionable camera]()
+- [x] [Chapter10:Positionable camera](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter10positionable-camera)
 - [ ] [Chapter11:Defocus]()
 - [ ] [Chapter12:Where next?]()
 
@@ -885,7 +885,76 @@ public :
 
 
 
-## Chapter11:Defocus 
+## Chapter11:Defocus Blur
+
+散焦模糊（虚化），拍照的时候，我们经常会制造出虚化的效果，主题清晰，背景或者前景模糊，这是因为摄像机具有焦距，会有一个成像面，在有效焦距内的物体才能清晰成像，通过光圈控制进光量也可以控制虚化的范围。大光圈和长焦端，都可以制造出浅景深的效果。
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.14.05%20AM.png" width="300" height="200" alt=""/></div>
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.14.00%20AM.png" width="400" height="200" alt=""/></div>
+
+本章引入aperture（光圈）,focus_dist(焦距) 2个参数，来实现画面的虚化效果。
+```C++
+
+class camera
+{
+    vec3 origin;
+    vec3 u,v,w;
+    vec3 horizontal;
+    vec3 vertical;
+    vec3 lower_left_corner;
+    float len_radius;
+
+public :
+    camera(vec3 lookfrom, vec3 lookat, vec3 vup, float vfov, float aspect, float aperture, float focus_dist)
+    {
+        len_radius = aperture/2;
+        float theta = vfov*M_PI/180;
+        float half_height = tan(theta/2);
+        float half_width = aspect * half_height;
+        origin = lookfrom;
+
+        w = unit_vector(lookfrom - lookat);
+        u = unit_vector(cross(vup, w));
+        v = cross(w,u);
+
+        lower_left_corner = origin - half_width*focus_dist*u - half_height*focus_dist*v - focus_dist*w;
+        horizontal = 2*half_width*focus_dist*u;
+        vertical = 2*half_height*focus_dist*v;
+    }
+
+    ray get_ray(float s,float t)
+    {
+        vec3 rd = len_radius * random_in_unit_disk();
+        vec3 offset = u * rd.x() +v*rd.y();
+        return ray(origin + offset,lower_left_corner+s*horizontal + t*vertical - origin - offset);
+    }
+
+    vec3 random_in_unit_disk()
+    {
+        vec3 p;
+        do{
+            p = 2.0*vec3(drand48(),drand48(),0)-vec3(1,1,0);
+        }while (dot(p,p)>=1.0);
+        return p;
+    }
+
+};
+```
+
+
+改变camera的参数，设置光圈和焦距
+```C++
+    vec3 lookfrom(3,3,2);
+    vec3 lookat(0,0,-1);
+    float dist_to_focus = (lookfrom-lookat).length();
+    float aperture = 2.0;
+    camera cam(lookfrom,lookat,vec3(0,1,0),20,float(nx)/float(ny),aperture,dist_to_focus);
+```
+
+拿到的效果如下：
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.12.43%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter12:Where next?
 
