@@ -19,7 +19,7 @@
 - [x] [Chapter6:Antialiasing](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter6antialiasing)
 - [x] [Chapter7:Diffuse Materials](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter7diffuse-materials)
 - [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metalADD)
-- [ ] [Chapter9:Dielectrics]()
+- [x] [Chapter9:Dielectrics](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter9dielectrics)
 - [ ] [Chapter10:Positionable camera]()
 - [ ] [Chapter11:Defocus]()
 - [ ] [Chapter12:Where next?]()
@@ -824,6 +824,89 @@ public:
 
 ## Chapter10:Positionable camera
 
+自由位置的camera，首先有了解FOV（Field of view）视场的概念，相当于视力看到的一定角度的内容。
+
+从射线源点的位置，射向z=-1的平面，可以看到的高度h，满足：
+
+	h = tan(theta/2)
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.29.32%20AM.png" width="250" height="200" alt=""/></div>
+
+修改camera部分的代码，增加fov 和aspect来控制可以看到的宽和高。
+
+设置好camera的viewpoint之后，viewpoint就是lookfrom的点，看向的点就是lookat，还需要确定看过去水平方向的视野宽度，和竖直方向的视野宽度，camera所在平面竖直向上的向量"view up” vup，通过叉乘，拿到uvw，刚好相当于一个相机的坐标系。
+
+```C++
+class camera
+{
+    vec3 origin;
+    vec3 horizontal;
+    vec3 vertical;
+    vec3 lower_left_corner;
+
+public :
+    camera(vec3 lookfrom, vec3 lookat, vec3 vup, float vfov, float aspect)
+    {
+        vec3 u,v,w;
+        float theta = vfov*M_PI/180;
+        float half_height = tan(theta/2);
+        float half_width = aspect * half_height;
+        origin = lookfrom;
+
+        w = unit_vector(lookfrom - lookat);
+        u = unit_vector(cross(vup, w));
+        v = cross(w,u);
+
+        lower_left_corner = vec3 (-half_width,-half_height,-1.0);
+        lower_left_corner = origin - half_width*u - half_height*v - w;
+        horizontal = 2*half_width*u;
+        vertical = 2*half_height*v;
+    }
+
+    ray get_ray(float u,float v)
+    {
+        return ray(origin,lower_left_corner+u*horizontal + v*vertical - origin);
+    }
+
+};
+
+```
+
+
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.26.23%20AM.png" width="700" height="200" alt=""/></div>
+
+设置新的摄像机，fov分别设置90和30°，得到的画面如下：
+
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.38.15%20AM.png" width="400" height="200" alt=""/></div>
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.34.45%20AM.png" width="400" height="200" alt=""/></div>
+
+
+
 ## Chapter11:Defocus 
 
 ## Chapter12:Where next?
+
+* Motion Blur
+	
+	运动模糊。跟上面的DOF一样，暴力多渲几帧，每帧用不同的位置就行。
+* Bounding Volume Hierarchies
+
+	包围盒树。加速相交检测计算的。这方面另外有一大把更好的资料。
+* 贴图
+	
+	形状里定义好UV，然后用UV来采样贴图。当然采样方法有多种。
+* Perlin Noise
+	
+	柏林噪声。这里重点对采样结果做了Filtering，已经简单介绍了Turb（N重噪声产生的大理石纹理）
+* 光源
+	
+	把光源当成Emissive材质就搞定了。
+* 物件的摆放
+	
+	之前都是写绝对坐标的，这里在形状的体系里面加了一层Transform，只要通过那个Transform把Ray变换到物体的局部空间就可以像之前一样进行相交检测了。
+* 体（Volume / Participating Media）
+	
+	依然暴力的把Ray一点点插进Volume里面进行采样，每个采样点上取得Volume自身的颜色，并把Ray四散开去即可。

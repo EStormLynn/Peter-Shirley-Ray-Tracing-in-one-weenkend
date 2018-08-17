@@ -22,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="188">
+              <caret line="50" column="64" lean-forward="false" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -34,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="material.h" pinned="false" current-in-tab="true">
+      <file leaf-file-name="material.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/material.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="100" column="40" lean-forward="true" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
+            <state relative-caret-position="80">
+              <caret line="92" column="39" lean-forward="false" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
               <folding>
                 <element signature="e#157#173#0" expanded="true" />
               </folding>
@@ -49,8 +49,8 @@
       <file leaf-file-name="camera.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/camera.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="16" column="7" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state relative-caret-position="165">
+              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -116,8 +116,10 @@
       <find>refl</find>
       <find>mat_ptr</find>
       <find>rand</find>
-      <find>refra</find>
       <find>ref</find>
+      <find>refra</find>
+      <find>came</find>
+      <find>cam</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -129,11 +131,11 @@
         <option value="$PROJECT_DIR$/cmake-build-debug/hitable_list.h" />
         <option value="$PROJECT_DIR$/hitable_list.h" />
         <option value="$PROJECT_DIR$/cmake-build-debug/camera.h" />
-        <option value="$PROJECT_DIR$/camera.h" />
         <option value="$PROJECT_DIR$/hitable.h" />
         <option value="$PROJECT_DIR$/sphere.h" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/material.h" />
+        <option value="$PROJECT_DIR$/camera.h" />
+        <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
   </component>
@@ -248,12 +250,12 @@
       <workItem from="1530980249992" duration="13000" />
       <workItem from="1530980275646" duration="1228000" />
       <workItem from="1533137573766" duration="17638000" />
-      <workItem from="1534174829090" duration="6703000" />
+      <workItem from="1534174829090" duration="9555000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27813000" />
+    <option name="totallyTimeSpent" value="30665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -561,14 +563,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/camera.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="16" column="7" lean-forward="false" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -611,22 +605,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/material.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state relative-caret-position="80">
+          <caret line="92" column="39" lean-forward="false" selection-start-line="92" selection-start-column="39" selection-end-line="92" selection-end-column="39" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#157#173#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/material.h">
+    <entry file="file://$PROJECT_DIR$/camera.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="100" column="40" lean-forward="true" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
+        <state relative-caret-position="165">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="50" column="64" lean-forward="false" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
           <folding>
-            <element signature="e#157#173#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
