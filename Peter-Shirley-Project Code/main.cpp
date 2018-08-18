@@ -1,4 +1,5 @@
-#include <iostream>
+#include<fstream>
+#include<iostream>
 #include "sphere.h"
 #include "hitable_list.h"
 #include "float.h"
@@ -40,7 +41,7 @@ vec3 color(const ray& r,hitable *world, int depth)
 hitable *random_scene() {
     int n = 500;
     hitable **list = new hitable*[n+1];
-    list[0] =  new sphere(vec3(0,-1000,0), 1000, new lambertian(vec3(0.5, 0.5, 0.5)));
+    list[0] =  new sphere(vec3(0,-700,0), 700, new lambertian(vec3(0.5, 0.5, 0.5)));
     int i = 1;
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
@@ -57,13 +58,13 @@ hitable *random_scene() {
                 else {  // glass
                     list[i++] = new sphere(center, 0.2, new dielectric(1.5));
                 }
-            }
-        }
+            }break;
+        }break;
     }
 
-    list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(1.5));
+    list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(2.5));
     list[i++] = new sphere(vec3(-4, 1, 0), 1.0, new lambertian(vec3(0.4, 0.2, 0.1)));
-    list[i++] = new sphere(vec3(4, 1, 0), 1.0, new metal(vec3(0.7, 0.6, 0.5), 0.0));
+    list[i++] = new sphere(vec3(4, 1, 0), 1.0, new metal(vec3(1, 1, 1), 0.0));
 
     return new hitable_list(list,i);
 }
@@ -71,23 +72,27 @@ hitable *random_scene() {
 
 int main()
 {
-    int nx =200;
-    int ny =100;
+    string str = "";
+
+    int nx = 180;
+    int ny = 90;
     // 采样数量ns
     int ns = 100;
-    cout<<"P3\n"<<nx<<" "<<ny<<"\n255\n";
 
-    vec3 lookfrom(3,3,2);
-    vec3 lookat(0,0,-1);
-    float dist_to_focus = (lookfrom-lookat).length();
-    float aperture = 2.0;
+
+    vec3 lookfrom(13,2,3);
+    vec3 lookat(0,0,0);
+    float dist_to_focus = 10.0;
+    float aperture = 0.1;
     camera cam(lookfrom,lookat,vec3(0,1,0),20,float(nx)/float(ny),aperture,dist_to_focus);
+
+
 
     hitable *list[2];
     // 球1,2,3,4; 2个lambertian ，2个metal
     list[0] = new sphere(vec3(0,0,-1),0.5,new lambertian(vec3(0.8,0.3,0.3)));
     list[1] = new sphere(vec3(0,-100.5,-1),100,new lambertian(vec3(0.8,0.8,0.0)));
-    list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),0.3));
+    list[2] = new sphere(vec3(1,0,-1),0.5,new metal(vec3(0.8,0.6,0.2),0.0));
     list[3] = new sphere(vec3(-1,0,-1),0.5,new dielectric(1.5));
     list[4] = new sphere(vec3(-1,0,-1), -0.45, new dielectric(1.5));
     hitable *world = new hitable_list(list,5);
@@ -95,8 +100,13 @@ int main()
 
     random_device rd;
 
+    ofstream OutFile("Test.ppm"); //利用构造函数创建txt文本，并且打开该文本
+
+    OutFile<<"P3\n"<<nx<<" "<<ny<<"\n255\n";
+
     for(int j=ny-1;j>=0;j--)
     {
+        str = "";
         for(int i=0;i<nx;i++)
         {
             vec3 col(0,0,0);
@@ -116,9 +126,13 @@ int main()
 
             int ir=int(255.99* col[0]);
             int ig=int(255.99* col[1]);
-            int ib=int(255.99* col[2]);;
-            cout<<ir<<" "<<ig<<" "<<ib<<"\n";
+            int ib=int(255.99* col[2]);
+            string s = to_string(ir)+" "+to_string(ig)+" "+to_string(ib)+"\n";
+            str+=s;
         }
+        OutFile<<str;
     }
+
+    OutFile.close();            //关闭Test.txt文件
 
 }

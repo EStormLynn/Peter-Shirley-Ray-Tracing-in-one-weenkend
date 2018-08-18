@@ -19,6 +19,8 @@ hitable.h
 /Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/hitable.h
 
 /Users/SeeKHit/Project/Peter-Shirley-Ray-Tracing-in-one-weenkend/Peter-Shirley-Project Code/main.cpp
+fstream
+-
 iostream
 -
 sphere.h
