@@ -58,8 +58,8 @@ hitable *random_scene() {
                 else {  // glass
                     list[i++] = new sphere(center, 0.2, new dielectric(1.5));
                 }
-            }break;
-        }break;
+            }
+        }
     }
 
     list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(2.5));
@@ -74,8 +74,8 @@ int main()
 {
     string str = "";
 
-    int nx = 180;
-    int ny = 90;
+    int nx = 1500;
+    int ny = 900;
     // 采样数量ns
     int ns = 100;
 

@@ -21,8 +21,8 @@
 - [x] [Chapter8:Metal](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter8metalADD)
 - [x] [Chapter9:Dielectrics](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter9dielectrics)
 - [x] [Chapter10:Positionable camera](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter10positionable-camera)
-- [ ] [Chapter11:Defocus]()
-- [ ] [Chapter12:Where next?]()
+- [x] [Chapter11:Defocus](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter11defocus-blur)
+- [x] [Chapter12:Where next?](https://github.com/EStormLynn/Peter-Shirley-Ray-Tracing-in-one-weenkend#chapter12where-next)
 
 
 ## Chapter1:Output an image
@@ -957,6 +957,47 @@ public :
 <div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.12.43%20AM.png" width="400" height="200" alt=""/></div>
 
 ## Chapter12:Where next?
+
+这张主要运用本书学到的知识，完成封面上的图片的渲染。
+
+通过添加一个随机生成的世界，达到很多个小球的效果
+```C++
+
+hitable *random_scene() {
+    int n = 500;
+    hitable **list = new hitable*[n+1];
+    list[0] =  new sphere(vec3(0,-700,0), 700, new lambertian(vec3(0.5, 0.5, 0.5)));
+    int i = 1;
+    for (int a = -11; a < 11; a++) {
+        for (int b = -11; b < 11; b++) {
+            float choose_mat = drand48();
+            vec3 center(a+0.9*drand48(),0.2,b+0.9*drand48());
+            if ((center-vec3(4,0.2,0)).length() > 0.9) {
+                if (choose_mat < 0.8) {  // diffuse
+                    list[i++] = new sphere(center, 0.2, new lambertian(vec3(drand48()*drand48(), drand48()*drand48(), drand48()*drand48())));
+                }
+                else if (choose_mat < 0.95) { // metal
+                    list[i++] = new sphere(center, 0.2,
+                                           new metal(vec3(0.5*(1 + drand48()), 0.5*(1 + drand48()), 0.5*(1 + drand48())),  0.5*drand48()));
+                }
+                else {  // glass
+                    list[i++] = new sphere(center, 0.2, new dielectric(1.5));
+                }
+            }
+        }
+    }
+
+    list[i++] = new sphere(vec3(0, 1, 0), 1.0, new dielectric(2.5));
+    list[i++] = new sphere(vec3(-4, 1, 0), 1.0, new lambertian(vec3(0.4, 0.2, 0.1)));
+    list[i++] = new sphere(vec3(4, 1, 0), 1.0, new metal(vec3(1, 1, 1), 0.0));
+
+    return new hitable_list(list,i);
+}
+```
+
+<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/QQ20180819-0.png" width="800" height="480" alt=""/></div>
+
+下一本书Peter Shirley-Ray Tracing The Next Week (2016) 将会从以下几个方面继续学习光追。
 
 * Motion Blur
 	
