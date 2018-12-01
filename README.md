@@ -62,7 +62,7 @@ int main()
 * 红+绿=黄
 * 打印的内容保存成.ppm格式即可预览
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Chapter01_Output%20an%20image.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-7f3c0355e11c1e2949f97b0189680aab_hd.jpg" height="200" alt=""/></div>
 
 ## Chapter2:The vec3 class
 用于几何向量计算和颜色计算，包含颜色，向量，位置坐标，偏移，主要包含重写操作符，以及点乘、叉乘等操作。
@@ -104,7 +104,7 @@ public:
     p(t) = A + t*B
 其中A是光源点，B是ray的方向，t是具体float值，空间中确定一条线，不同的t，可以到达不同地方。
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/3.1.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-29682ab407ffd4ed242b2c14d9b72bdf_hd.jpg" width="400" height="200" alt=""/></div>
 
 
 p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计算像素点的颜色。在ray tracing之前需要有个摄像机，建立坐标系，显示背景色，以及ray hit的点的颜色。
@@ -112,14 +112,14 @@ p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计
 假设摄像机的位置就是眼睛位置，看到的内容为ppm显示的东西，简历坐标系，z轴正方向，垂直平面向外，x向右，y向上，
 
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/3.2.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic1.zhimg.com/80/v2-256af94c4b851099830bbb77a681e8e4_hd.jpg" width="400" height="200" alt=""/></div>
 
 
 计算公式：
 
     blended_value = (1-t)*start_value + t*end_value
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-05%20at%2011.57.37%20PM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic1.zhimg.com/80/v2-e053a7ccb7b1874437f239b308f0f9dc_hd.jpg" width="400" height="200" alt=""/></div>
 
 
 ## Chapter4:Adding a sphere
@@ -148,7 +148,7 @@ p(t)称为点A关于t的函数。Ray tracing的本质是通过发射射线，计
 
 ABC已知，这里是一个关于t的一元二次方程，对于t无解，有一个解，有两个解的情况，即为下图
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/roots.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-8e922e558fc31c4d6629fd2adc92332b_hd.jpg" width="400" height="200" alt=""/></div>
 
 
 通过打印颜色，利用红色的射线，ray hit 圆，hit到的地方显示红色
@@ -183,7 +183,7 @@ vec3 color(const ray& r)
 
 法线是垂直与物体表面的一个向量，对于上一节提到的球，他的法线方向是，从球心出发，射向hitpoint的。就像在地球上，地面的法向是从地心出发，射向你站立的点的。
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.39%20AM.png" width="350" height="200" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-d130ae6e8965d48e20c60345af6cdb79_hd.jpg" width="350" height="200" alt=""/></div>
 
 
 假设N是长度在[-1，1]之间的单位向量，映射到去见[0,1]之间，再映射x/y/z到r/g/b，通常除了须要知道是否hit点，还要拿到hit point的数据。
@@ -221,7 +221,7 @@ vec3 color(const ray& r)
 ```
 
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.07.29%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-d8bcecfd81c4a0fe82cf30ae229ffd2a_hd.jpg" width="400" height="200" alt=""/></div>
 
 当场景中有多个可以被击中的物体的时候，需要一个Hitable的抽象类，包含抽象方法hit 是否击中，以及记录hit到的数据，包括hit的位置，hit点的法向，以及距离t
 
@@ -378,7 +378,7 @@ int main()
 }
 ```
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-10%20at%201.35.11%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-a9720d2f13431c451ff810bf020804e2_hd.jpg" width="400" height="200" alt=""/></div>
 
 ## Chapter6:Antialiasing
 
@@ -393,7 +393,7 @@ int main()
 对于给的一个像素，我们有好几个采样点在像素内，对每个采样点进行ray tracer，再平均每个采样点的color。
 
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/average%20sample.png" width="300" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-d29c08aefaa73cb3af50cd8594b192af_hd.jpg" width="300" height="200" alt=""/></div>
 
 
 camera类
@@ -496,7 +496,7 @@ int main()
 
 最后达到的效果如下
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/AA.png" width="400" height="400" alt=""/></div>
+<div align=center><img src="https://pic1.zhimg.com/80/v2-f27567631897915d4f0396a2a3c0e52c_hd.jpg" width="400" height="400" alt=""/></div>
 
 
 ## Chapter7:Diffuse Materials
@@ -504,13 +504,13 @@ int main()
 
 不发光的物体，漫反射是吸收周围的颜色，显示出来，物体表面反射周围的光线的方向是随机的，如下图，在2个不同的物体的漫反射表面间，发射了3条光线，三条光线的漫反射之后的路径各不相同：
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.02.10%20PM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-43f441f5a985ab3108c2733f5ec694ef_hd.jpg" width="400" height="200" alt=""/></div>
 
 漫反射物体的表面，也可能会吸收部分光线，表面越暗，吸收的光线越多，吸收之后看起来就像一个哑光的表面。
 
 选择一个随机的点切一个单位半径的球，这个点就是hitpoint，在球上选个随机点s，从p到s做一条线，作为漫反射的方向，这个球的球心是（p + N），N是hitpoitn的法向。
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.12.28%20PM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-0f4996f6a53eb82c8b61587da30a198b_hd.jpg" width="400" height="200" alt=""/></div>
 
 关于球面上s点如何区，这里的做法是，在单位cube中，选一个点，x、y、z都在[-1,1]之间，如果这个点不在球内，继续选点，直到满足在球内的这个条件。
 
@@ -543,7 +543,7 @@ vec3 color(const ray& r,hitable *world)
 ```
 
 得到的图像如下：
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.33.09%20PM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-e77018a50ee8a542469d13e9676913e6_hd.jpg" width="400" height="200" alt=""/></div>
 
 球和地板的交界处的颜色可能不明显，是因为吸收的光太多了，可以通多将颜色开放的方法，来提高物体表面的亮度，减少吸收的光
 
@@ -551,7 +551,7 @@ vec3 color(const ray& r,hitable *world)
 
 这样就可以看清楚交界处的阴影效果了，如下图：
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-12%20at%202.39.00%20PM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-1f7a94e198a4d707d9d5900478c4fb49_hd.jpg" width="400" height="200" alt=""/></div>
 
 ## Chapter8:Metal
 对于不同的物体，可能有不同的材质，所以就需要设计一个材质抽象类，包含一些参数。对于程序而言，材质需要做的事情包括
@@ -600,7 +600,7 @@ public:
 
 对于光滑表面的物体，ray不会随机的散射，物理规律是反射角等于入射角，会发生镜面反射，向量的说明如下：
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-13%20at%2011.53.40%20PM.png" width="260" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-68d6686f4b28608fd3b2d99ae2dd6df2_hd.jpg" width="260" height="200" alt=""/></div>
 
 红色的是反射光线，向量表示是(v+2B)，N是单位法向量，v是入射光线的方向向量，B的模是v和N的点乘 dot(v,N)。公式为：
 	
@@ -707,21 +707,21 @@ int main()
 }
 ```
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%2012.42.39%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-067007f413c4a73ff7787e0293549351_hd.jpg" width="400" height="200" alt=""/></div>
 
 关于metal的反射，也可以用一个随机性的反射方向，来做微量的偏移，相当于一个小球上选endpoint。fuzzinss就相当于这个小球的半径，可以决定反射偏移的多少。fuzz取值在[0,1]之间
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.35%20AM.png" width="300" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-66044755357fe95f4bc81d241ffee5ea_hd.jpg" width="300" height="200" alt=""/></div>
 
 最后效果如下，注意两边的metal sphere中反射的边界模糊。
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-14%20at%201.02.45%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-dd1409046d94e18d485ad15fdbec4879_hd.jpg" width="400" height="200" alt=""/></div>
 
 ## Chapter9:Dielectrics
 
 透明的物体，比如水，玻璃，钻石是电介质，当光射入的时候，不仅发生反射，还会发生折射。折射光线是ray tracer中比较难debug的部分。本章节在场景中放入了2个玻璃球，渲染出来的画面是这样的：
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.04.21%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic1.zhimg.com/80/v2-6c8bc3b7f8b9096263dfc5af1a7e7a20_hd.jpg" width="400" height="200" alt=""/></div>
 
 光从一种介质进入另一种介质时，实际上，有一部分光会折射进入另一种介质，有另一部分光则会反射回来。反射系数=反射光振幅（能量）/入射光振幅（能量）。
 
@@ -737,7 +737,7 @@ https://en.wikipedia.org/wiki/Schlick%27s_approximation
 
 折射系数（air= 1,glass = 1.3-1.7, diamond = 2.4）
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.05.54%20AM.png" width="250" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-776f6d07a5dba0838f5116d942bf8cb2_hd.jpg" width="250" height="200" alt=""/></div>
 
 折射部分的代码如下：
 
@@ -808,7 +808,7 @@ public:
     list[3] = new sphere(vec3(-1,0,-1),0.5,new dielectric(1.5));
 ```
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.18.55%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-51d25b699d5d8454d3691ec62bd0705f_hd.jpg" width="400" height="200" alt=""/></div>
 
 如果对于电介质的球内部再加一个半径为 负的球，得到的效果如下（感觉是不同介质之间负负得正了）：
 
@@ -820,7 +820,7 @@ public:
     list[4] = new sphere(vec3(-1,0,-1),-0.45,new dielectric(1.5));
 ```
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-16%20at%2012.24.39%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-d467f07981377c056ebdaf917d15fbaa_hd.jpg" width="400" height="200" alt=""/></div>
 
 ## Chapter10:Positionable camera
 
@@ -830,7 +830,7 @@ public:
 
 	h = tan(theta/2)
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.29.32%20AM.png" width="250" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-961f0ef4d367e9cda2f04a72a88c28f6_hd.jpg" width="250" height="200" alt=""/></div>
 
 修改camera部分的代码，增加fov 和aspect来控制可以看到的宽和高。
 
@@ -874,14 +874,14 @@ public :
 
 
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.26.23%20AM.png" width="700" height="200" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-93e328bd11e15213472d893472a492fd_hd.jpg" width="700" height="200" alt=""/></div>
 
 设置新的摄像机，fov分别设置90和30°，得到的画面如下：
 
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.38.15%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic4.zhimg.com/80/v2-7411e96936e0e10f738d88be896daf8b_hd.jpg" width="400" height="200" alt=""/></div>
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%2012.34.45%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-523a799997f7bad0742e9f72c04ce226_hd.jpg" width="400" height="200" alt=""/></div>
 
 
 
@@ -889,9 +889,9 @@ public :
 
 散焦模糊（虚化），拍照的时候，我们经常会制造出虚化的效果，主题清晰，背景或者前景模糊，这是因为摄像机具有焦距，会有一个成像面，在有效焦距内的物体才能清晰成像，通过光圈控制进光量也可以控制虚化的范围。大光圈和长焦端，都可以制造出浅景深的效果。
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.14.05%20AM.png" width="300" height="200" alt=""/></div>
+<div align=center><img src="https://pic1.zhimg.com/80/v2-0dd05439d00999d143e9a67a072b7170_hd.jpg" width="300" height="200" alt=""/></div>
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.14.00%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-386a65a92e476c04b47cae54c08350e2_hd.jpg" width="400" height="200" alt=""/></div>
 
 本章引入aperture（光圈）,focus_dist(焦距) 2个参数，来实现画面的虚化效果。
 ```C++
@@ -954,7 +954,7 @@ public :
 
 拿到的效果如下：
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/Screen%20Shot%202018-08-18%20at%201.12.43%20AM.png" width="400" height="200" alt=""/></div>
+<div align=center><img src="https://pic3.zhimg.com/80/v2-cd93ac71262b320ccec348fbc5c9b592_hd.jpg" width="400" height="200" alt=""/></div>
 
 ## Chapter12:Where next?
 
@@ -995,7 +995,7 @@ hitable *random_scene() {
 }
 ```
 
-<div align=center><img src="http://oo8jzybo8.bkt.clouddn.com/QQ20180819-0.png" width="800" height="480" alt=""/></div>
+<div align=center><img src="https://pic2.zhimg.com/80/v2-14728be16c1cdc863f5063d2eef4b8c9_hd.jpg" width="800" height="480" alt=""/></div>
 
 下一本书Peter Shirley-Ray Tracing The Next Week (2016) 将会从以下几个方面继续学习光追。
 
